@@ -1,30 +1,40 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {loadImg} from "./actions";
-import {deleteImg} from "./actions";
+import {checkTodo, loadTodo} from "./actions";
+import {deleteTodo} from "./actions";
+import Header from "./Header";
 
 function App() {
-  const todos = useSelector(state => state.img);
+  const todos = useSelector(state => state.todos);
   const loading = useSelector(state => state.loading);
   const dispatch = useDispatch()
 
   useEffect(()=>{
-    dispatch(loadImg())
+    dispatch(loadTodo())
   },[])
 
   const handleDelete = (id) => {
-    dispatch(deleteImg(id))
+    dispatch(deleteTodo(id))
+  }
+
+  const handleCheck = (id, completed) => {
+    dispatch(checkTodo(id, completed))
   }
   return (
     <div>
-      <div>Картинки:</div>
+      <Header />
       {loading ? ' собр...' : (
-          todos.map(img => {
+          todos.map(todo => {
             return (
-                <div className='position'>
-                  <img className='image' src={img.url} alt=""/>
+                <div className='todo'>
+                  <div>
+                    <input type="checkbox" checked={todo.completed} onChange={() => handleCheck(todo.id , todo.completed)}/>
+                  </div>
+                  <div className='title'>
+                    {todo.title}
+                  </div>
                   <div className="button">
-                    <button onClick={() => handleDelete(img.id)} >удалить</button>
+                    <button onClick={() => handleDelete(todo.id)} >удалить</button>
                   </div>
                 </div>
             )

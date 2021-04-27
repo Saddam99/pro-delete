@@ -7,7 +7,7 @@ import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
 
 const initialStare = {
-    img: [],
+    todos: [],
     loading: false
 
 }
@@ -21,14 +21,27 @@ const reducer = (state = initialStare, action) => {
         case 'load':
             return {
                 ...state,
-                img: action.payload,
+                todos: action.payload,
                 loading: false
             }
         case 'delete':
             return {
                 ...state,
-                img: state.img.filter(img => {
-                    return img.id !== action.payload;
+                todos: state.todos.filter(todo => {
+                    return todo.id !== action.payload;
+                })
+            }
+        case 'check':
+            return {
+                ...state,
+                todos: state.todos.map(todo => {
+                    if (todo.id === action.payload) {
+                        return {
+                            ...todo,
+                            completed: !todo.completed
+                        }
+                    }
+                    return todo;
                 })
             }
         default:

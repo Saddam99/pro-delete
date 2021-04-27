@@ -2,20 +2,20 @@
     margin: auto;
     width: 800px;
 }
-.position {
-    display: inline-block;
-    position: relative;
+
+.header {
+    border-bottom: 1px solid wheat;
+    font-size: 40px;
+}
+.todo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
 
 }
-.image {
-    display: block;
-    width: 200px;
-
-
-}
-button {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-
+.title {
+    flex: 1;
+    font-size: 20px;
+    margin-left: 10px;
 }
